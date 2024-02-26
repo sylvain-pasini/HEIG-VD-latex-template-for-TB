@@ -1,0 +1,145 @@
+\documentclass[a4paper,11pt,twoside,openright]{book} % Type du document
+
+% compiler avec: pdflatex, bibtex, pdflatex, pdflatex
+% require Pygmentize
+
+% to install Pygmentize on macOS:
+% brew install python
+% pip3 install pygments
+% sudo ln -s "$(which pygmentize)" /Library/TeX/texbin/pygmentize
+
+% +---------------------------------------------------------------+
+% | Language
+% +---------------------------------------------------------------+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\newif\ifisconfidential	\isconfidentialfalse
+
+\newif\ifisdraft\isdraftfalse
+
+
+
+% +---------------------------------------------------------------+
+% | Paramètres
+% +---------------------------------------------------------------+
+
+\newcommand{\TBtitle}{Titre du TB}
+\newcommand{\TBsubtitle}{Sous-titre}%laisser vide si pas de sous-titre
+\newcommand{\TByear}{2024}
+\newcommand{\TBacademicYears}{2023-24}
+
+\newcommand{\TBdpt}{Département des Technologie de l'information et de la communication (TIC)}
+\newcommand{\TBfiliere}{Filière <<Informatique et systèmes de communication>>}
+\newcommand{\TBorient}{Orientation <<Sécurité informatique>>}
+
+\newcommand{\TBauthor}{EtuPrenom EtuNom}
+\newcommand{\TBsupervisor}{Prof. Bli Bla}
+\newcommand{\TBindustryContact}{Nom}
+\newcommand{\TBindustryName}{EntrepriseZ}
+\newcommand{\TBindustryAddress}{%
+  Rue XY\\
+  1400 Yverdon-les-Bains
+}
+
+% Confidentiel?
+% uncomment if confidential / comment if not confiential
+% \isconfidentialtrue
+
+\newcommand{\TBresumePubliable}{
+Dans ce travail... Ceci est le résumé publiable...
+}
+
+% +---------------------------------------------------------------+
+
+
+
+% +-[set path]-------------------------------------+
+\usepackage{template/TB-style}
+\usepackage{template/TB-macros}
+\usepackage{template/TB-template}
+%\graphicspath{images/}
+\usepackage{hyperref} %Doit etre le dernier package
+\usepackage{pgfgantt} %for Gantt
+
+\begin{document}
+
+\frontmatter
+\pagestyle{empty}
+
+% TITLE and template
+% +---------------------------------------------------------------+
+
+\TBmaketitle
+
+\pagestyle{frontmatter}
+
+\TBsecondTitle
+
+\TBpreambule
+
+\TBauthentification
+
+
+% Cahier des charges
+% +---------------------------------------------------------------+
+\input{chapters/cdc}
+
+
+% TOC
+% +---------------------------------------------------------------+
+\tableofcontents
+\clearpage
+
+
+% Content
+% +---------------------------------------------------------------+
+
+\mainmatter
+\pagestyle{plain}
+
+\input{chapters/introduction}
+
+\input{chapters/planification}
+
+\input{chapters/etat-de-lart}
+
+\input{chapters/ch_exemple}
+
+\input{chapters/architecture}
+
+\input{chapters/implementation}
+
+\input{chapters/conclusion}
+
+% +---------------------------------------------------------------+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliographie}
+\markboth{Bibliographie}{Bibliographie}
+\bibliographystyle{plain}
+\bibliography{chapters/biblio}
+\nocite{*} %ajoute tout ce qu'il y a dans le bibtex
+
+\phantomsection
+\listoffigures
+\addcontentsline{toc}{chapter}{Table des Figures}
+\markboth{Table des Figures}{Table des Figures}
+
+\phantomsection
+\listoftables
+\addcontentsline{toc}{chapter}{Liste des tableaux}
+\markboth{Liste des tableaux}{Liste des tableaux}
+
+
+% Annexes
+% +---------------------------------------------------------------+
+\appendix
+
+\input{chapters/outils}
+
+\input{chapters/journal-de-travail}
+
+
+\end{document}
